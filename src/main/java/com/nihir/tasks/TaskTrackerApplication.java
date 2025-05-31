@@ -1,4 +1,4 @@
-package com.nihir.task_tracker;
+package com.nihir.tasks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.nihir.task_tracker;
+package com.nihir.tasks;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
