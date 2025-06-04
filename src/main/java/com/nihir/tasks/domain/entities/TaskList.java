@@ -26,7 +26,7 @@ public class TaskList {
     @OneToMany(mappedBy = "taskList", cascade = {CascadeType.REMOVE, CascadeType.PERSIST} )
     private List<Task> tasks;
 
-    @Column(name = "craeted", nullable = false, updatable = false)
+    @Column(name = "created", nullable = false, updatable = false)
     private LocalDateTime created;
 
     @Column(name = "updated", nullable = false, updatable = false)
