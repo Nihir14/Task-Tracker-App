@@ -1,6 +1,5 @@
 package com.nihir.tasks.services.impl;
 
-import com.nihir.tasks.domain.entities.Task;
 import com.nihir.tasks.domain.entities.TaskList;
 import com.nihir.tasks.repos.TaskListRepo;
 import com.nihir.tasks.services.TaskListService;
@@ -51,22 +50,27 @@ public class TaskListServiceImpl implements TaskListService {
     }
 
     @Override
-    public TaskList updateTaskList(UUID id, TaskList taskList) {
+    public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
         if (null == taskList.getId()) {
             throw new IllegalArgumentException("TaskList ID cannot be null");
         }
 
-        if (!Objects.equals(taskList.getId(), id)) {
+        if (!Objects.equals(taskList.getId(), taskListId)) {
             throw new IllegalArgumentException("TaskList ID does not match the provided ID");
         }
 
-        TaskList existingTaskList = taskListRepo.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("TaskList with ID " + id + " does not exist")
+        TaskList existingTaskList = taskListRepo.findById(taskListId).orElseThrow(
+                () -> new IllegalArgumentException("TaskList with ID " + taskListId + " does not exist")
         );
 
         existingTaskList.setTitle(taskList.getTitle());
         existingTaskList.setDescription(taskList.getDescription());
         existingTaskList.setUpdated(LocalDateTime.now());
         return taskListRepo.save(existingTaskList);
+    }
+
+    @Override
+    public void deleteTaskList(UUID id) {
+        taskListRepo.deleteById(id);
     }
 }
