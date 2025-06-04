@@ -26,7 +26,7 @@ public class Task {
 
 
 
-    @Column(name = "craeted", nullable = false, updatable = false)
+    @Column(name = "created", nullable = false, updatable = false)
     private LocalDateTime created;
 
     @Column(name = "updated", nullable = false, updatable = false)
