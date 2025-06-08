@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.nihir.task-tracker' is invalid and this project uses 'com.nihir.tasks' instead.
+* The original package name 'com.nihir.task-tracker' is invalid and this project uses 'com.nihir.task' instead.
 
 # Getting Started
 
