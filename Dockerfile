@@ -1,14 +1,14 @@
-# Use OpenJDK 21 as the base image
-FROM eclipse-temurin:21-jdk-jammy
+# 1. Update to Java 22 to match your local development environment
+FROM eclipse-temurin:22-jdk-jammy
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the JAR file into the working directory
+# 2. Copy the JAR (Ensure 'mvn clean install' passed successfully first!)
 COPY target/*.jar app.jar
 
-# Expose the port your app listens on
 EXPOSE 8080
 
-# Run the Spring Boot application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# 3. Enhanced Entrypoint:
+#    - Forces UTC timezone to prevent "Asia/Calcutta" errors
+#    - Allows passing arguments
+ENTRYPOINT ["java", "-Duser.timezone=UTC", "-jar", "app.jar"]
