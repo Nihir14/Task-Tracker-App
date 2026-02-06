@@ -1,14 +1,19 @@
-# 1. Update to Java 22 to match your local development environment
-FROM eclipse-temurin:22-jdk-jammy
-
+# --- Stage 1: Build the Application ---
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+# Builds the JAR file inside the container
+RUN mvn clean package -DskipTests
 
-# 2. Copy the JAR (Ensure 'mvn clean install' passed successfully first!)
-COPY target/*.jar app.jar
+# --- Stage 2: Run the Application ---
+# (Using Java 21 LTS is safer than 22, but works for both)
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+# Copy the built JAR from Stage 1
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-# 3. Enhanced Entrypoint:
-#    - Forces UTC timezone to prevent "Asia/Calcutta" errors
-#    - Allows passing arguments
+# Forces UTC (Best practice) but your DB connection handles the specific timezone
 ENTRYPOINT ["java", "-Duser.timezone=UTC", "-jar", "app.jar"]
